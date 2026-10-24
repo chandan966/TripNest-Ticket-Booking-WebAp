@@ -1,0 +1,111 @@
+.popular-section,.results-section {
+  max-width: 1160px;
+  margin: 76px auto 0;
+  padding: 0 20px;
+}
+
+.heading-doodle {
+  font-size: 40px;
+  color: #f1a66c;
+  margin-right: 8px;
+}
+
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 17px;
+}
+
+.destination-card {
+  height: 190px;
+  border: 0;
+  border-radius: 15px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  transition: transform .2s,box-shadow .2s;
+  background-size: cover;
+}
+
+.destination-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px #0002;
+}
+
+.destination-card:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,#1e282bd9,#1e282b16);
+}
+
+.pune-mumbai {
+  background: linear-gradient(130deg,#6e8790,#b7c5bb 60%,#e9c9a7);
+}
+
+.mumbai-goa {
+  background: linear-gradient(130deg,#226b74,#66b2a0 55%,#e3c68a);
+}
+
+.mumbai-delhi {
+  background: linear-gradient(130deg,#443d58,#a38a9e 55%,#e5bc88);
+}
+
+.destination-tag,.destination-name,.destination-foot {
+  position: relative;
+  z-index: 1;
+}
+
+.destination-tag {
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  font-weight: 800;
+  background: #ffffff26;
+  border: 1px solid #ffffff55;
+  border-radius: 30px;
+  padding: 7px 10px;
+}
+
+.destination-name {
+  font: 800 20px Manrope,sans-serif;
+  letter-spacing: -.7px;
+  margin-top: auto;
+  margin-bottom: 8px;
+}
+
+.destination-name span {
+  color: #ffd4ac;
+}
+
+.destination-foot {
+  font-size: 11px;
+  color: #f7eee7;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.destination-foot b {
+  font-size: 17px;
+}
+
+@media (max-width:680px) {
+  .popular-section,.results-section {
+    padding: 0 15px;
+    margin-top: 52px;
+  }
+
+  .destination-grid {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .destination-card {
+    height: 150px;
+  }
+}

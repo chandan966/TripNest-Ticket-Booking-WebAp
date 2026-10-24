@@ -1,0 +1,260 @@
+.search-wrap {
+  max-width: 1160px;
+  margin: 0 auto 0;
+  padding: 0 20px;
+  position: relative;
+  z-index: 8;
+}
+
+.search-tabs {
+  display: flex;
+  gap: 8px;
+  padding-left: 19px;
+}
+
+.search-tab {
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  background: #fff;
+  padding: 13px 20px;
+  border-radius: 12px 12px 0 0;
+  color: #73756f;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.search-tab span {
+  font-size: 15px;
+  margin-right: 7px;
+}
+
+.search-tab.selected {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid #f0e9e2;
+  border-radius: 16px;
+  background: white;
+  padding: 15px;
+  box-shadow: 0 18px 55px #6e4b2c12;
+  min-height: 105px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 14px;
+  min-width: 0;
+  border-right: 1px solid #eee9e3;
+  flex: 1;
+}
+
+.location-field {
+  flex: 1.18;
+}
+
+.field-icon {
+  color: var(--orange);
+  font-size: 20px;
+  width: 20px;
+  text-align: center;
+}
+
+.destination-icon {
+  color: #6b9c7d;
+}
+
+.field-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  width: 100%;
+}
+
+.field-copy small {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #a1a199;
+}
+
+.field select,.field input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #343630;
+  font-weight: 700;
+  font-size: 13px;
+  width: 100%;
+  min-width: 0;
+}
+
+.field select {
+  appearance: none;
+}
+
+.field input[type=date] {
+  font-family: inherit;
+}
+
+.swap-btn {
+  flex-shrink: 0;
+  border: 1px solid #f1d8cb;
+  background: #fff8f3;
+  color: var(--orange);
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  font-size: 16px;
+  z-index: 1;
+  margin: 0 -15px 0 -19px;
+}
+
+.date-field {
+  flex: 1.08;
+}
+
+.passengers-field {
+  flex: .95;
+  border: 0;
+}
+
+.search-btn {
+  flex-shrink: 0;
+  border: 0;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 11px;
+  padding: 17px 19px;
+  font-weight: 800;
+  font-size: 12px;
+  box-shadow: 0 6px 14px #f451352c;
+}
+
+.search-btn span {
+  font-size: 17px;
+  margin-left: 9px;
+}
+
+.search-btn:hover,.login-btn:hover {
+  background: var(--orange-dark);
+}
+
+.search-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 10px;
+  color: #999b93;
+  margin-top: 15px;
+}
+
+.search-note span {
+  color: #e7a36d;
+}
+
+@media (max-width:980px) {
+  .search-form {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .field {
+    min-width: 38%;
+    border: 1px solid #f1ece6;
+    border-radius: 10px;
+    padding: 12px;
+    min-height: 62px;
+  }
+
+  .swap-btn {
+    margin: 0;
+    position: absolute;
+    left: calc(50% - 15px);
+    top: 41px;
+  }
+
+  .search-form {
+    position: relative;
+  }
+
+  .search-btn {
+    flex: 1;
+    min-height: 50px;
+  }
+
+  .passengers-field {
+    border: 1px solid #f1ece6;
+  }
+}
+
+@media (max-width:680px) {
+  .search-wrap {
+    padding: 0 14px;
+  }
+
+  .search-tabs {
+    padding-left: 4px;
+    gap: 5px;
+  }
+
+  .search-tab {
+    padding: 11px 12px;
+    font-size: 10px;
+  }
+
+  .search-tab span {
+    margin-right: 4px;
+  }
+
+  .search-form {
+    padding: 11px;
+    gap: 8px;
+  }
+
+  .field {
+    min-width: calc(50% - 5px);
+    flex: 1;
+    padding: 10px;
+    gap: 7px;
+  }
+
+  .field-icon {
+    font-size: 17px;
+    width: 16px;
+  }
+
+  .field-copy small {
+    font-size: 8px;
+  }
+
+  .field select,.field input {
+    font-size: 11px;
+  }
+
+  .swap-btn {
+    left: calc(50% - 14px);
+    top: 37px;
+    width: 27px;
+    height: 27px;
+  }
+
+  .search-btn {
+    min-width: 100%;
+    padding: 14px;
+  }
+
+  .search-note {
+    font-size: 9px;
+    text-align: center;
+  }
+}
