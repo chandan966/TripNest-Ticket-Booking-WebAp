@@ -25,13 +25,13 @@
 }
 
 .peach {
-  background: #fff0e7;
-  color: #e65b3f;
+  background: #fff0f1;
+  color: var(--orange);
 }
 
 .lilac {
-  background: #f1edff;
-  color: #8271c5;
+  background: #f8eff0;
+  color: #a45b68;
 }
 
 .mint {

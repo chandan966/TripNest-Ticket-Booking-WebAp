@@ -15,8 +15,8 @@ export default function Header() {
     <>
       <div className="announcement">
         <span className="spark">✦</span>
-        Your next adventure starts here
-        <span className="announcement-right">Simple bookings. Better journeys.</span>
+        Your next bus journey starts here
+        <span className="announcement-right">Easy booking. Happier journeys.</span>
       </div>
       <header className="header">
         <Brand />

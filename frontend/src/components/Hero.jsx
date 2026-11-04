@@ -5,23 +5,32 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-copy">
-        <div className="eyebrow"><span className="eyebrow-dot" /> TRAVEL YOUR WAY</div>
-        <h1>Go places.<br /><span>Make stories.</span></h1>
-        <p className="hero-description">Compare routes, find a fare that feels right, and book your next journey — all in one happy place.</p>
+        <div className="eyebrow"><span className="eyebrow-dot" /> BUS TRAVEL, MADE EASY</div>
+        <h1>More than a ride.<br /><span>Your next story.</span></h1>
+        <p className="hero-description">Find your route, choose a seat, and book your next bus journey in just a few easy steps.</p>
         <div className="trust-row">
-          <div className="avatar-stack"><i>R</i><i>A</i><i>S</i><i>+</i></div>
-          <span><strong>Easy travel planning</strong><br />One search. More possibilities.</span>
+          <div className="trust-check">✓</div>
+          <span><strong>Simple, secure booking</strong><br />Your journey starts right here.</span>
         </div>
       </div>
-      <div className="hero-art" aria-label="Travel illustration">
-        <div className="sun" /><div className="cloud cloud-one" /><div className="cloud cloud-two" />
-        <div className="hill hill-back" /><div className="hill hill-front" />
-        <div className="route-line" />
-        <div className="floating-card card-one"><span className="mini-icon">✈</span><span><b>New places</b><small>Closer than you think</small></span></div>
-        <div className="floating-card card-two"><span className="mini-icon green">✓</span><span><b>Easy booking</b><small>In just a few steps</small></span></div>
-        <div className="plane">✈</div>
+      <div className="hero-art" role="img" aria-label="A red TripNest bus traveling through the hills">
+        <div className="sun" />
+        <div className="cloud cloud-one" />
+        <div className="cloud cloud-two" />
+        <div className="hill hill-back" />
+        <div className="road" />
+        <div className="hill hill-front" />
+        <div className="hero-bus">
+          <div className="bus-destination">TRIPNEST</div>
+          <div className="bus-window-row"><i /><i /><i /></div>
+          <div className="bus-grille" />
+          <span className="bus-light" />
+          <span className="bus-wheel wheel-one" />
+          <span className="bus-wheel wheel-two" />
+        </div>
+        <div className="floating-card card-one"><span className="mini-icon">↗</span><span><b>Great routes</b><small>Ready when you are</small></span></div>
+        <div className="floating-card card-two"><span className="mini-icon green">✓</span><span><b>Easy booking</b><small>From search to seat</small></span></div>
       </div>
-      <div className="hero-sticker"><span>✦</span> Find your<br />kind of journey</div>
     </section>
   );
 }

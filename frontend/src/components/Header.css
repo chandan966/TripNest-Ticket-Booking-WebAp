@@ -1,6 +1,6 @@
 .announcement {
   height: 34px;
-  background: #292a26;
+  background: #bd3842;
   color: #fff;
   padding: 0 max(calc((100vw - 1160px)/2),24px);
   display: flex;
@@ -45,7 +45,7 @@
   place-items: center;
   background: var(--orange);
   color: white;
-  border-radius: 11px 11px 11px 4px;
+  border-radius: 9px;
   font: 800 23px Manrope;
   transform: rotate(-3deg);
 }
@@ -76,7 +76,7 @@
 }
 
 .nav-item.active,.nav-item:hover {
-  background: #fff0e9;
+  background: #fff0f1;
   color: var(--orange);
 }
 
@@ -100,7 +100,7 @@
   color: #fff;
   padding: 12px 17px;
   font-weight: 700;
-  box-shadow: 0 5px 12px #f4513526;
+  box-shadow: 0 5px 12px #d84e5526;
 }
 
 .login-btn span {
