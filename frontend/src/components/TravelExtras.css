@@ -1,0 +1,110 @@
+.travel-extras {
+  max-width: 1160px;
+  margin: 76px auto 0;
+  padding: 0 20px;
+}
+
+.extras-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.offer-card,.service-card {
+  min-height: 206px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: #fff;
+}
+
+.offer-card {
+  color: #fff;
+  background: linear-gradient(140deg, #c73f48, #e87b71);
+  border: 0;
+}
+
+.offer-kicker {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  opacity: .85;
+}
+
+.offer-card h3,.service-card h3 {
+  margin: 15px 0 7px;
+  font: 800 17px Manrope,sans-serif;
+}
+
+.offer-card p,.service-card p {
+  min-height: 38px;
+  margin: 0 0 14px;
+  color: inherit;
+  opacity: .78;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.coupon-copy,.service-card button {
+  border: 1px solid #ffffff78;
+  border-radius: 8px;
+  padding: 9px 11px;
+  color: inherit;
+  background: #ffffff19;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.service-card {
+  background: #fffdfb;
+}
+
+.service-icon {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  place-items: center;
+  border-radius: 10px;
+  background: #fff0e9;
+  color: var(--orange);
+  font-size: 18px;
+}
+
+.service-card h3 {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.service-card p {
+  min-height: 35px;
+  color: var(--muted);
+}
+
+.service-card button {
+  border-color: #efddd7;
+  background: #fff;
+  color: var(--orange-dark);
+}
+
+.extras-disclaimer {
+  margin: 12px 0 0;
+  color: #888;
+  font-size: 10px;
+}
+
+@media (max-width: 900px) {
+  .extras-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .travel-extras {
+    margin-top: 52px;
+    padding: 0 15px;
+  }
+
+  .extras-grid {
+    grid-template-columns: 1fr;
+  }
+}

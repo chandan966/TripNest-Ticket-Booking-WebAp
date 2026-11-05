@@ -1,5 +1,10 @@
 node_modules/
+.next/
+.vercel/
+next-env.d.ts
 .env
+.env.local
+.env.*.local
 frontend/dist/
 backend/data/*.db
 backend/data/*.db-shm

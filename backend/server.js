@@ -78,25 +78,46 @@ app.get("/api/locations", (req, res) => {
   res.json(rows.map(r => r.city));
 });
 
+function tripAvailabilityQuery(whereClause = "", params = []) {
+  const sql = `
+    SELECT
+      t.*,
+      CASE
+        WHEN t.total_seats - COALESCE(bt.seats_booked, 0) > 0 THEN t.total_seats - COALESCE(bt.seats_booked, 0)
+        ELSE 0
+      END AS seats_available
+    FROM trips t
+    LEFT JOIN (
+      SELECT trip_id, SUM(seats) AS seats_booked
+      FROM bookings
+      WHERE status = 'confirmed'
+      GROUP BY trip_id
+    ) bt ON bt.trip_id = t.id
+    ${whereClause}
+    ORDER BY t.departure_time ASC, t.price ASC
+  `;
+  return db.prepare(sql).all(...params);
+}
+
 app.get("/api/trips", (req, res) => {
   const { from, to, date, type } = req.query;
   if (date && !validDate(date)) return res.status(400).json({ error: "Date must use YYYY-MM-DD format." });
-  let sql = "SELECT * FROM trips WHERE 1=1";
+
+  const whereClauses = [];
   const params = [];
-  if (from) { sql += " AND lower(origin)=lower(?)"; params.push(from); }
-  if (to) { sql += " AND lower(destination)=lower(?)"; params.push(to); }
-  if (date) { sql += " AND travel_date=?"; params.push(date); }
-  if (type && ["bus","train","flight"].includes(type)) { sql += " AND type=?"; params.push(type); }
-  sql += " ORDER BY departure_time ASC, price ASC";
-  const trips = db.prepare(sql).all(...params).map(t => ({ ...t, seats_available: Math.max(0, t.total_seats - db.prepare("SELECT COALESCE(SUM(seats),0) AS n FROM bookings WHERE trip_id=? AND status='confirmed'").get(t.id).n) }));
+  if (from) { whereClauses.push("lower(origin)=lower(?)"); params.push(String(from)); }
+  if (to) { whereClauses.push("lower(destination)=lower(?)"); params.push(String(to)); }
+  if (date) { whereClauses.push("travel_date=?"); params.push(String(date)); }
+  if (type && ["bus","train","flight"].includes(String(type))) { whereClauses.push("type=?"); params.push(String(type)); }
+
+  const trips = tripAvailabilityQuery(whereClauses.length ? `WHERE ${whereClauses.join(" AND ")}` : "", params);
   res.json(trips);
 });
 
 app.get("/api/trips/:id", (req, res) => {
-  const trip = db.prepare("SELECT * FROM trips WHERE id=?").get(Number(req.params.id));
+  const trip = tripAvailabilityQuery("WHERE t.id = ?", [Number(req.params.id)])[0];
   if (!trip) return res.status(404).json({ error: "Trip not found." });
-  const booked = db.prepare("SELECT COALESCE(SUM(seats),0) AS n FROM bookings WHERE trip_id=? AND status='confirmed'").get(trip.id).n;
-  res.json({ ...trip, seats_available: Math.max(0, trip.total_seats - booked) });
+  res.json(trip);
 });
 
 app.post("/api/bookings", auth, (req, res) => {

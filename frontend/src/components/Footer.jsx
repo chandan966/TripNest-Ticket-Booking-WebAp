@@ -20,7 +20,7 @@ export default function Footer() {
       <footer>
         <Brand />
         <p>Made for the joy of getting there.</p>
-        <a className="footer-credit" href="https://github.com/chandan966" target="_blank" rel="noreferrer">
+        <a className="footer-credit" href="https://www.instagram.com/trigger_toofan?vrfl=N3JjMTFrZjVwempj" target="_blank" rel="noreferrer">
           @webdevchandan
         </a>
         <span>© 2026 TripNest · Demo booking platform</span>

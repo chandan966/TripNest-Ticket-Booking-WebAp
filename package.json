@@ -1,29 +1,24 @@
 {
   "name": "tripnest-ticket-booking",
   "version": "1.0.0",
-  "description": "Full-stack bus and travel ticket booking MVP with Express, SQLite, JWT authentication, and a responsive frontend.",
-  "main": "backend/server.js",
+  "description": "Travel booking demo with a Next.js frontend, serverless API routes, and Neon PostgreSQL.",
+  "main": "app/page.jsx",
   "scripts": {
-    "start": "npm run build && node backend/server.js",
-    "dev": "concurrently -k -n api,web -c cyan,green \"npm:dev:server\" \"npm:dev:client\"",
-    "dev:server": "node --watch backend/server.js",
-    "dev:client": "vite --config frontend/vite.config.js --host 127.0.0.1",
-    "build": "vite build --config frontend/vite.config.js",
-    "db:reset": "node backend/scripts/reset-db.js"
+    "start": "next start",
+    "dev": "next dev",
+    "build": "next build",
+    "db:seed": "node scripts/seed-db.mjs"
   },
-  "engines": { "node": ">=20 <23" },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "@next/env": "^16.4.5",
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^11.8.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "next": "^16.4.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "concurrently": "^9.2.0",
-    "vite": "^6.3.5"
   }
 }

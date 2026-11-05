@@ -34,6 +34,47 @@
   margin-bottom: 18px;
 }
 
+.advanced-filters {
+  display: flex;
+  align-items: end;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+  padding: 14px;
+  border: 1px solid #f0ece7;
+  border-radius: 12px;
+  background: #fffdfb;
+}
+
+.advanced-filters label {
+  display: grid;
+  gap: 6px;
+  color: #777;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.advanced-filters select {
+  min-width: 130px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px;
+  color: #444;
+  background: #fff;
+  font-size: 10px;
+}
+
+.advanced-filters .filter-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+}
+
+.filter-check input {
+  accent-color: var(--orange);
+}
+
 .filter-pill {
   border: 1px solid var(--line);
   border-radius: 30px;
@@ -99,6 +140,33 @@
   font-size: 10px;
   margin-top: 5px;
   text-transform: capitalize;
+}
+
+.trip-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.trip-badge {
+  display: inline-flex;
+  border-radius: 20px;
+  padding: 4px 7px;
+  background: #eff7f0;
+  color: #397a61;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.trip-badge.primo {
+  background: #fff2d6;
+  color: #9a6a13;
+}
+
+.trip-rating {
+  color: #9a6a13;
+  font-weight: 800;
 }
 
 .trip-timing {
@@ -201,6 +269,22 @@
   .popular-section,.results-section {
     padding: 0 15px;
     margin-top: 52px;
+  }
+
+  .advanced-filters {
+    align-items: stretch;
+  }
+
+  .advanced-filters label:not(.filter-check) {
+    flex: 1 1 45%;
+  }
+
+  .advanced-filters select {
+    width: 100%;
+  }
+
+  .filters {
+    overflow-x: auto;
   }
 
   .trip-card {

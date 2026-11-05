@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useEffect } from "react";
 import Header from "../components/Header.jsx";
 import Hero from "../components/Hero.jsx";
 import JourneySearch from "../components/JourneySearch.jsx";
 import TripResults from "../components/TripResults.jsx";
+import TravelExtras from "../components/TravelExtras.jsx";
 import PopularRoutes from "../components/PopularRoutes.jsx";
 import Benefits from "../components/Benefits.jsx";
 import Footer from "../components/Footer.jsx";
@@ -21,6 +24,7 @@ export default function HomePage() {
         <Hero />
         <JourneySearch />
         <TripResults />
+        <TravelExtras />
         <PopularRoutes />
         <Benefits />
         <Footer />

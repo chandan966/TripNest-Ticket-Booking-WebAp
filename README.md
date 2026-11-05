@@ -1,150 +1,99 @@
-# TripNest — Full-stack ticket booking web app
+# TripNest
 
-A responsive travel-ticket booking MVP inspired by the general booking experience of RedBus, Skyscanner, and ixigo. It is an original demo project and is **not affiliated with those companies**.
+TripNest is a college/demo travel-booking application for comparing and booking sample bus, train, and flight journeys. It is an original project and is not affiliated with any transport operator or booking company.
 
-## Included features
+## Stack
 
-- Responsive frontend for desktop and mobile
-- Search buses, trains, and flights by origin, destination, date, and travel type
-- Sort results by fare or departure time and filter by transport type
-- Account registration and login with hashed passwords (`bcryptjs`)
-- JWT-protected booking and account APIs
-- Passenger details, seat availability checks, unique booking codes, and booking history
-- Cancel eligible future bookings
-- SQLite database with users, trips, and bookings tables
-- Demo admin APIs for listing bookings and adding trips
-- Seeded sample routes so the app works locally without a third-party travel API
-
-## Requirements
-
-- Node.js 20 or 22 (Node 22 LTS recommended; `better-sqlite3` may need Visual Studio C++ tools on newer Node versions)
-- npm
+- Next.js App Router with serverless API routes
+- React
+- Neon PostgreSQL
+- JWT authentication and bcrypt password hashing
+- Vercel deployment
 
 ## Run locally
 
-1. Open the `TripNest-Ticket-Booking-WebApp` folder in VS Code.
-2. Open a terminal in that folder.
-3. Install dependencies:
+Requirements: Node.js 20.9 or newer and npm.
+
+1. Install dependencies:
 
    ```bash
    npm install
    ```
 
-4. Copy `.env.example` to `.env`. Change `JWT_SECRET` to a long random value.
-5. Start the app:
+2. Create a Neon project and copy its connection string into `.env.local`:
 
-   ```bash
-   npm start
+   ```env
+   DATABASE_URL=postgresql://...
+   JWT_SECRET=use-a-long-random-secret
    ```
 
-6. Open **http://localhost:3000**.
+   `.env.example` lists optional credentials for future Razorpay, maps, and Cloudinary integrations. Do not commit environment files or put secrets in `NEXT_PUBLIC_*` variables.
 
-The production frontend is built automatically when you run `npm start`. The SQLite database is stored at `backend/data/tripnest.db`, and demo trips are seeded on first startup.
+3. Create the tables and sample trips:
 
-## Main project structure
+   ```bash
+   npm run db:seed
+   ```
 
-```text
-TripNest-Ticket-Booking-WebApp/
-├── frontend/
-│   ├── public/
-│   │   └── favicon.svg
-│   ├── src/
-│   │   ├── components/   # Reusable UI components; JSX and CSS files stay together
-│   │   │   ├── Benefits.jsx / Benefits.css
-│   │   │   ├── BookingModals.jsx / BookingModals.css
-│   │   │   ├── Footer.jsx / Footer.css
-│   │   │   ├── Header.jsx / Header.css
-│   │   │   ├── Hero.jsx / Hero.css
-│   │   │   ├── JourneySearch.jsx / JourneySearch.css
-│   │   │   ├── PopularRoutes.jsx / PopularRoutes.css
-│   │   │   ├── TripResults.jsx / TripResults.css
-│   │   │   └── GlobalStyles.css
-│   │   ├── pages/
-│   │   │   └── HomePage.jsx / HomePage.css
-│   │   ├── App.jsx       # Root React component
-│   │   ├── dom-ui.js     # Search, login, booking and account interactions
-│   │   └── main.jsx      # React entry point
-│   ├── index.html
-│   └── vite.config.js
-├── backend/
-│   ├── data/             # Local SQLite database
-│   ├── scripts/
-│   │   └── reset-db.js   # Removes local DB files for a fresh demo
-│   ├── src/
-│   │   └── db.js         # SQLite schema and demo data
-│   └── server.js         # Express REST API
-├── package.json
-├── .env.example
-└── README.md
-```
+4. Start Next.js:
 
-Each UI component keeps its `.jsx` and `.css` files side by side in `frontend/src/components`. Page-level layouts live in `frontend/src/pages`, with their JSX and CSS together.
+   ```bash
+   npm run dev
+   ```
 
-## Development mode
+5. Open **http://localhost:3000**.
 
-Run the frontend and backend with automatic restarts:
+The database setup command is safe to rerun: it creates missing tables and only inserts the sample journeys when the trips table is empty.
 
-```bash
-npm run dev
-```
+## Deploy to Vercel
 
-Open **http://localhost:5173** in development mode. The Vite development server forwards `/api` requests to the backend at port 3000. Use `npm start` for the built app at **http://localhost:3000**.
+1. Import the repository into Vercel.
+2. Add `DATABASE_URL` and `JWT_SECRET` to the project's Environment Variables for the environments you will use.
+3. Deploy. Vercel detects the Next.js app and builds its API routes as serverless functions.
+4. Run `npm run db:seed` once with the production Neon connection string before demonstrating the deployed app.
 
-## API overview
+Never commit `.env.local` or share database/payment secrets.
 
-### Health and trip search
+## Included demo flows
+
+- Responsive TripNest booking interface
+- Search buses, trains, and flights by route, date, and type
+- Sort and filter journeys by fare, departure window, and bus type; explore sample operator ratings, women-friendly badges, and Primo-style listings
+- Select seats, boarding/drop points, passengers, and a payment option in the demo booking flow
+- Apply sample offer codes, view a printable sample e-ticket, and see an approximate demo tracker for bus bookings
+- Create an account and sign in
+- Reserve available seats with passenger details
+- View booking history, request a demo reschedule, and cancel eligible future bookings
+- Admin APIs for listing bookings and adding sample trips
+
+The sample schedules, fares, and availability are fictional. Payment is not collected, and bookings are not tickets issued by a transport provider.
+
+## API routes
 
 - `GET /api/health`
 - `GET /api/locations`
 - `GET /api/trips?from=Pune&to=Mumbai&date=YYYY-MM-DD&type=bus`
 - `GET /api/trips/:id`
-
-Supported `type` values: `bus`, `train`, `flight`.
-
-### Authentication
-
-- `POST /api/auth/register` — JSON: `{ "name": "Demo User", "email": "demo@example.com", "password": "at-least-8-chars" }`
-- `POST /api/auth/login` — JSON: `{ "email": "demo@example.com", "password": "..." }`
-- `GET /api/auth/me` — requires `Authorization: Bearer <token>`
-
-### Bookings (require a bearer token)
-
-- `POST /api/bookings` — JSON: `{ "tripId": 1, "seats": 1, "passengers": [{ "name": "Demo User", "age": 21 }] }`
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/auth/me`
+- `POST /api/bookings`
 - `GET /api/bookings/mine`
 - `GET /api/bookings/:code`
 - `POST /api/bookings/:code/cancel`
-
-### Admin endpoints
-
 - `GET /api/admin/bookings`
 - `POST /api/admin/trips`
 
-Both require a user whose `role` is `admin`. For local development, register a user, stop the app, and set their role in SQLite using a database viewer or SQL:
+Authenticated API calls use `Authorization: Bearer <token>`. To enable the demo admin APIs, promote a registered account in Neon:
 
 ```sql
 UPDATE users SET role = 'admin' WHERE email = 'your-email@example.com';
 ```
 
-Restart the server and sign in again to obtain a token with the updated role.
+Sign out and back in to receive a token with the updated role.
 
-## Important project limitations
+## Demo limitations
 
-This is a functional **college/demo MVP**, not a production travel marketplace:
+This project is not a production travel marketplace. Schedules, availability, ratings, safety badges, seat maps, offers, and tracking are sample data. Payments offer test/demo choices only and do not call Razorpay; refunds are not processed. Live operator inventory, real ticket issuance, GPS tracking, SMS/OTP, hotel inventory, and customer-support integrations require external providers. Maps and Cloudinary are optional future integrations; credentials alone are not wired up by the current demo.
 
-- The sample schedules and prices are fictional demo data. They are not live inventory or guaranteed fares.
-- There is no live supplier/GDS/IRCTC/bus-operator integration.
-- There is no real payment gateway, ticket issuance, email/SMS delivery, or OTP verification. The UI clearly says that no real payment is collected.
-- Before public deployment, add rate limiting, stricter validation, secure cookie/token handling, CSRF strategy if using cookies, request logging, tests, privacy/terms pages, backups, and production secret management.
-- SQLite is convenient for local development. For multi-instance deployment, use a managed database such as PostgreSQL and migrate the schema.
-- Never publish your `.env` or real credentials.
-
-## Reset demo data
-
-Stop the app, then run:
-
-```bash
-npm run db:reset
-npm start
-```
-
-This deletes the local SQLite database so it is recreated with fresh demo data. It will also delete local demo accounts and bookings.
+Before any real-world use, add provider integrations, secure session/cookie handling, rate limits, monitoring, privacy/terms pages, robust cancellation/refund policies, and production security review.
