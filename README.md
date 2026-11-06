@@ -1,99 +1,65 @@
 # TripNest
 
-TripNest is a college/demo travel-booking application for comparing and booking sample bus, train, and flight journeys. It is an original project and is not affiliated with any transport operator or booking company.
+TripNest is an original bus-booking demo for comparing sample journeys and exercising a complete local booking flow. Sample trips and operators are fictional; the project is not affiliated with a transport provider.
 
-## Stack
+## Local stack
 
-- Next.js App Router with serverless API routes
-- React
-- Neon PostgreSQL
-- JWT authentication and bcrypt password hashing
-- Vercel deployment
+- React and Vite frontend
+- Express API
+- SQLite database at `backend/data/tripnest.db`
+- bcrypt password hashing and JWT authentication
+
+The repository also contains an older Next.js and Neon API path. The local `npm run dev` flow described here uses Express and SQLite.
 
 ## Run locally
 
-Requirements: Node.js 20.9 or newer and npm.
+Requirements: Node.js 20.19 or newer and npm.
 
-1. Install dependencies:
+1. Install dependencies with `npm install`.
+2. Ensure `.env` contains a random `JWT_SECRET` with at least 32 characters. Keep `.env` private. `DATABASE_URL` is only needed by the optional Neon/Next path.
+3. Start the app with `npm run dev` and open **http://localhost:3000**.
 
-   ```bash
-   npm install
-   ```
+The `predev` step builds the Vite frontend before Express serves it. `npm run build` builds the frontend only. The SQLite database creates its tables and sample routes on first start and preserves existing local records on later starts.
 
-2. Create a Neon project and copy its connection string into `.env.local`:
+To run the separate Next.js path, use `npm run dev:next`. Its API uses Neon PostgreSQL and requires `DATABASE_URL`; it does not use the SQLite seat-hold endpoints.
 
-   ```env
-   DATABASE_URL=postgresql://...
-   JWT_SECRET=use-a-long-random-secret
-   ```
+## Working local flows
 
-   `.env.example` lists optional credentials for future Razorpay, maps, and Cloudinary integrations. Do not commit environment files or put secrets in `NEXT_PUBLIC_*` variables.
+- Search sample bus, train, and flight routes by city, date, and type.
+- Register, sign in, and view account bookings.
+- Hold up to six specific seats on the server for five minutes. Expired holds are rejected at checkout, and one customer cannot hold a seat already held or booked by another customer.
+- Save passenger and boarding/drop details with a demo booking.
+- Apply active database coupons with minimum fare, date, route, and usage validation.
+- View/print a clearly marked sample ticket, cancel eligible future bookings, and release the seats.
+- View account notifications for bookings, cancellations, and support updates; mark one or all as read.
+- Create support tickets, attach an owned booking reference, exchange replies, and track status. Admin accounts can reply and update ticket status.
+- Use limited admin booking/trip APIs after promoting an account in the local SQLite database.
 
-3. Create the tables and sample trips:
-
-   ```bash
-   npm run db:seed
-   ```
-
-4. Start Next.js:
-
-   ```bash
-   npm run dev
-   ```
-
-5. Open **http://localhost:3000**.
-
-The database setup command is safe to rerun: it creates missing tables and only inserts the sample journeys when the trips table is empty.
-
-## Deploy to Vercel
-
-1. Import the repository into Vercel.
-2. Add `DATABASE_URL` and `JWT_SECRET` to the project's Environment Variables for the environments you will use.
-3. Deploy. Vercel detects the Next.js app and builds its API routes as serverless functions.
-4. Run `npm run db:seed` once with the production Neon connection string before demonstrating the deployed app.
-
-Never commit `.env.local` or share database/payment secrets.
-
-## Included demo flows
-
-- Responsive TripNest booking interface
-- Search buses, trains, and flights by route, date, and type
-- Sort and filter journeys by fare, departure window, and bus type; explore sample operator ratings, women-friendly badges, and Primo-style listings
-- Select seats, boarding/drop points, passengers, and a payment option in the demo booking flow
-- Apply sample offer codes, view a printable sample e-ticket, and see an approximate demo tracker for bus bookings
-- Create an account and sign in
-- Reserve available seats with passenger details
-- View booking history, request a demo reschedule, and cancel eligible future bookings
-- Admin APIs for listing bookings and adding sample trips
-
-The sample schedules, fares, and availability are fictional. Payment is not collected, and bookings are not tickets issued by a transport provider.
+The payment selector is for demonstration only. It does not contact Razorpay or collect money; demo bookings are clearly labeled and are not valid travel tickets.
 
 ## API routes
 
-- `GET /api/health`
-- `GET /api/locations`
-- `GET /api/trips?from=Pune&to=Mumbai&date=YYYY-MM-DD&type=bus`
-- `GET /api/trips/:id`
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/auth/me`
-- `POST /api/bookings`
-- `GET /api/bookings/mine`
-- `GET /api/bookings/:code`
+- `GET /api/health`, `/api/locations`, `/api/offers`
+- `GET /api/trips`, `/api/trips/:id`
+- `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
+- `POST /api/seats/hold`, `POST /api/seats/release`
+- `POST /api/bookings`, `GET /api/bookings/mine`, `GET /api/bookings/:code`
 - `POST /api/bookings/:code/cancel`
-- `GET /api/admin/bookings`
-- `POST /api/admin/trips`
+- `GET /api/notifications`, `PATCH /api/notifications/:id/read`, `PATCH /api/notifications/read-all`
+- `GET /api/support/tickets`, `POST /api/support/tickets`, `GET /api/support/tickets/:id`, `POST /api/support/tickets/:id/messages`
+- `GET /api/admin/bookings`, `POST /api/admin/trips`
+- `GET /api/admin/support/tickets`, `PATCH /api/admin/support/tickets/:id`
 
-Authenticated API calls use `Authorization: Bearer <token>`. To enable the demo admin APIs, promote a registered account in Neon:
+Authenticated API calls use `Authorization: Bearer <token>`. For local admin access, set a registered account's role in SQLite, then sign out and back in:
 
 ```sql
 UPDATE users SET role = 'admin' WHERE email = 'your-email@example.com';
 ```
 
-Sign out and back in to receive a token with the updated role.
+## Production integrations still required
 
-## Demo limitations
+The working local flow uses demo inventory and demo payment status. Real bookings require a payment provider order and server-side signature verification, live operator inventory, refund handling, customer communications, and valid operator ticket issuance. Those services are not configured in this repository, so the app must not be presented as selling real tickets.
 
-This project is not a production travel marketplace. Schedules, availability, ratings, safety badges, seat maps, offers, and tracking are sample data. Payments offer test/demo choices only and do not call Razorpay; refunds are not processed. Live operator inventory, real ticket issuance, GPS tracking, SMS/OTP, hotel inventory, and customer-support integrations require external providers. Maps and Cloudinary are optional future integrations; credentials alone are not wired up by the current demo.
+The Next.js/Neon path is separate and currently lacks the Express seat-hold behavior. Choose and complete one deployment architecture before production use. Do not use SQLite on ephemeral serverless storage.
 
-Before any real-world use, add provider integrations, secure session/cookie handling, rate limits, monitoring, privacy/terms pages, robust cancellation/refund policies, and production security review.
+Never commit `.env`, `.env.local`, or real payment, database, email, or SMS credentials.

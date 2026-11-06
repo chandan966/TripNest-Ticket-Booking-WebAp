@@ -59,7 +59,7 @@
   color: #555;
 }
 
-.form-stack input,.form-stack select {
+.form-stack input,.form-stack select,.form-stack textarea {
   border: 1px solid #e7e3dc;
   border-radius: 9px;
   padding: 12px;
@@ -68,15 +68,15 @@
   background: white;
 }
 
-.form-stack input:focus,.form-stack select:focus {
-  border-color: #e9878c;
-  box-shadow: 0 0 0 3px #d84e5512;
+.form-stack input:focus,.form-stack select:focus,.form-stack textarea:focus {
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px #FFC10712;
 }
 
 .primary-btn {
   border: 0;
   background: var(--orange);
-  color: white;
+  color: #111827;
   border-radius: 10px;
   padding: 14px;
   font-weight: 800;
@@ -168,7 +168,7 @@
 
 .seat-choice.selected {
   border-color: var(--orange);
-  color: #fff;
+  color: #111827;
   background: var(--orange);
 }
 
@@ -211,6 +211,46 @@
   border-radius: 12px;
 }
 
+.support-thread {
+  display: grid;
+  gap: 9px;
+  max-height: 300px;
+  overflow: auto;
+  margin: 12px 0 18px;
+}
+
+.support-message {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8fafc;
+  overflow-wrap: anywhere;
+}
+
+.support-message.staff {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.support-message p {
+  margin: 7px 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.support-message small,.support-ticket-link small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.support-ticket-link {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+}
+
 .booking-item-top {
   display: flex;
   justify-content: space-between;
@@ -241,6 +281,16 @@
 .status.cancelled {
   color: #aa5146;
   background: #fff0ed;
+}
+
+.status.notification-new {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.status.notification-read {
+  color: #64748b;
+  background: #f1f5f9;
 }
 
 .cancel-btn {

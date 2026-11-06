@@ -4,21 +4,34 @@
   "description": "Travel booking demo with a Next.js frontend, serverless API routes, and Neon PostgreSQL.",
   "main": "app/page.jsx",
   "scripts": {
-    "start": "next start",
-    "dev": "next dev",
-    "build": "next build",
-    "db:seed": "node scripts/seed-db.mjs"
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "dev:next": "next dev",
+    "build": "npm run build:frontend",
+    "db:seed": "node scripts/seed-db.mjs",
+    "predev": "npm run build:frontend",
+    "build:frontend": "vite build --config frontend/vite.config.js",
+    "build:next": "next build"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=20.19.0"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
     "@next/env": "^16.4.5",
+    "@prisma/client": "^7.10.1",
     "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
     "jsonwebtoken": "^9.0.2",
     "next": "^16.4.5",
+    "prisma": "^8.0.0-rc.30",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "vite": "8.3.6"
   }
 }

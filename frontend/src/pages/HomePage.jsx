@@ -1,16 +1,25 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect, lazy } from "react";
 import Header from "../components/Header.jsx";
 import Hero from "../components/Hero.jsx";
 import JourneySearch from "../components/JourneySearch.jsx";
 import TripResults from "../components/TripResults.jsx";
-import TravelExtras from "../components/TravelExtras.jsx";
-import PopularRoutes from "../components/PopularRoutes.jsx";
-import Benefits from "../components/Benefits.jsx";
-import Footer from "../components/Footer.jsx";
-import BookingModals from "../components/BookingModals.jsx";
 import "./HomePage.css";
+
+const TravelExtras = lazy(() => import("../components/TravelExtras.jsx"));
+const PopularRoutes = lazy(() => import("../components/PopularRoutes.jsx"));
+const Benefits = lazy(() => import("../components/Benefits.jsx"));
+const Footer = lazy(() => import("../components/Footer.jsx"));
+const BookingModals = lazy(() => import("../components/BookingModals.jsx"));
+
+function BelowFoldFallback() {
+  return (
+    <div style={{ padding: "24px 0", textAlign: "center", color: "#64748b" }}>
+      Loading more TripNest experiences…
+    </div>
+  );
+}
 
 export default function HomePage() {
   useEffect(() => {
@@ -24,12 +33,16 @@ export default function HomePage() {
         <Hero />
         <JourneySearch />
         <TripResults />
-        <TravelExtras />
-        <PopularRoutes />
-        <Benefits />
-        <Footer />
+        <Suspense fallback={<BelowFoldFallback />}>
+          <TravelExtras />
+          <PopularRoutes />
+          <Benefits />
+          <Footer />
+        </Suspense>
       </main>
-      <BookingModals />
+      <Suspense fallback={null}>
+        <BookingModals />
+      </Suspense>
     </div>
   );
 }

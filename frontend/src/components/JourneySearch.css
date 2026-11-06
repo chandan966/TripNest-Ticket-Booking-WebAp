@@ -31,15 +31,15 @@
 .search-tab.selected {
   background: var(--orange);
   border-color: var(--orange);
-  color: #fff;
-  box-shadow: 0 5px 13px #d84e5525;
+  color: #111827;
+  box-shadow: 0 5px 13px #FFC10725;
 }
 
 .search-form {
   display: flex;
   align-items: center;
   gap: 0;
-  border: 1px solid #f0e2e3;
+  border: 1px solid #E5E7EB;
   border-radius: 4px 16px 16px 16px;
   background: white;
   padding: 17px;
@@ -108,8 +108,8 @@
 
 .swap-btn {
   flex-shrink: 0;
-  border: 1px solid #f0ced0;
-  background: #fff6f6;
+  border: 1px solid #FDE68A;
+  background: #FFFBEB;
   color: var(--orange);
   width: 29px;
   height: 29px;
@@ -132,12 +132,12 @@
   flex-shrink: 0;
   border: 0;
   background: var(--orange);
-  color: #fff;
+  color: #111827;
   border-radius: 11px;
   padding: 17px 19px;
   font-weight: 800;
   font-size: 12px;
-  box-shadow: 0 6px 14px #d84e552c;
+  box-shadow: 0 6px 14px #FFC1072c;
 }
 
 .search-btn span {

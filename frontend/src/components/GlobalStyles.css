@@ -1,11 +1,11 @@
 :root {
-  --ink: #242522;
-  --muted: #777a75;
-  --orange: #d84e55;
-  --orange-dark: #bd3842;
-  --cream: #fff8f8;
-  --line: #ebe8e2;
-  --green: #397a61;
+  --ink: #111827;
+  --muted: #64748b;
+  --orange: #FFC107;
+  --orange-dark: #F59E0B;
+  --cream: #F8FAFC;
+  --line: #e5e7eb;
+  --green: #16a34a;
   --shadow: 0 18px 50px #4a302014;
 }
 
@@ -51,7 +51,7 @@ a {
 .eyebrow-dot {
   width: 7px;
   height: 7px;
-  background: #ef9b9e;
+  background: #F59E0B;
   border-radius: 50%;
 }
 

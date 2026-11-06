@@ -2,8 +2,9 @@ const Database = require("better-sqlite3");
 const fs = require("fs");
 const path = require("path");
 const dataDir = path.join(__dirname, "..", "data");
-fs.mkdirSync(dataDir, { recursive: true });
-const db = new Database(path.join(dataDir, "tripnest.db"));
+const dbPath = process.env.TRIPNEST_DB_PATH || path.join(dataDir, "tripnest.db");
+fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+const db = new Database(dbPath);
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
 
@@ -29,6 +30,8 @@ CREATE TABLE IF NOT EXISTS trips (
   duration TEXT NOT NULL,
   total_seats INTEGER NOT NULL DEFAULT 40,
   amenities TEXT DEFAULT 'Standard',
+  boarding_points_json TEXT NOT NULL DEFAULT '[]',
+  dropping_points_json TEXT NOT NULL DEFAULT '[]',
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS bookings (
@@ -40,12 +43,105 @@ CREATE TABLE IF NOT EXISTS bookings (
   total_amount REAL NOT NULL,
   status TEXT NOT NULL DEFAULT 'confirmed' CHECK(status IN ('confirmed','cancelled')),
   passengers_json TEXT NOT NULL,
+  selected_seats_json TEXT NOT NULL DEFAULT '[]',
+  boarding_point TEXT,
+  dropping_point TEXT,
+  payment_method TEXT NOT NULL DEFAULT 'demo',
+  payment_status TEXT NOT NULL DEFAULT 'demo_only',
+  coupon_code TEXT,
+  discount_amount REAL NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   cancelled_at TEXT
 );
+CREATE TABLE IF NOT EXISTS seat_holds (
+  trip_id INTEGER NOT NULL REFERENCES trips(id) ON DELETE CASCADE,
+  seat_code TEXT NOT NULL,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires_at INTEGER NOT NULL,
+  PRIMARY KEY (trip_id, seat_code)
+);
+CREATE TABLE IF NOT EXISTS coupons (
+  code TEXT PRIMARY KEY COLLATE NOCASE,
+  discount_type TEXT NOT NULL CHECK(discount_type IN ('percentage','fixed')),
+  discount_value REAL NOT NULL CHECK(discount_value > 0),
+  minimum_amount REAL NOT NULL DEFAULT 0,
+  maximum_discount REAL,
+  starts_at TEXT,
+  expires_at TEXT,
+  usage_limit INTEGER,
+  per_user_limit INTEGER,
+  active INTEGER NOT NULL DEFAULT 1 CHECK(active IN (0,1)),
+  origin TEXT,
+  destination TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS support_tickets (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ticket_code TEXT NOT NULL UNIQUE,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  booking_code TEXT REFERENCES bookings(booking_code) ON DELETE SET NULL,
+  category TEXT NOT NULL CHECK(category IN ('booking','payment','cancellation','refund','bus_issue','lost_item','account','technical')),
+  subject TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'OPEN' CHECK(status IN ('OPEN','IN_PROGRESS','WAITING_FOR_CUSTOMER','RESOLVED','CLOSED')),
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS support_messages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ticket_id INTEGER NOT NULL REFERENCES support_tickets(id) ON DELETE CASCADE,
+  author_user_id INTEGER NOT NULL REFERENCES users(id),
+  body TEXT NOT NULL,
+  from_staff INTEGER NOT NULL DEFAULT 0 CHECK(from_staff IN (0,1)),
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS notifications (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  message TEXT NOT NULL,
+  type TEXT NOT NULL,
+  booking_code TEXT,
+  support_ticket_id INTEGER REFERENCES support_tickets(id) ON DELETE SET NULL,
+  read_at TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 CREATE INDEX IF NOT EXISTS idx_trips_search ON trips(origin,destination,travel_date,type);
 CREATE INDEX IF NOT EXISTS idx_bookings_user ON bookings(user_id,created_at);
+CREATE INDEX IF NOT EXISTS idx_bookings_trip_status ON bookings(trip_id,status);
+CREATE INDEX IF NOT EXISTS idx_seat_holds_expiry ON seat_holds(expires_at);
+CREATE INDEX IF NOT EXISTS idx_coupons_active_dates ON coupons(active,starts_at,expires_at);
+CREATE INDEX IF NOT EXISTS idx_support_tickets_user_date ON support_tickets(user_id,created_at);
+CREATE INDEX IF NOT EXISTS idx_support_tickets_status_date ON support_tickets(status,created_at);
+CREATE INDEX IF NOT EXISTS idx_support_messages_ticket ON support_messages(ticket_id,created_at);
+CREATE INDEX IF NOT EXISTS idx_notifications_user_read_date ON notifications(user_id,read_at,created_at);
 `);
+
+// Add the seat list to existing demo databases without replacing or deleting user data.
+function addMissingColumns(table, definitions) {
+  const existing = new Set(db.prepare(`PRAGMA table_info(${table})`).all().map(column => column.name));
+  for (const [name, definition] of Object.entries(definitions)) {
+    if (!existing.has(name)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${name} ${definition}`);
+  }
+}
+addMissingColumns("trips", { boarding_points_json: "TEXT NOT NULL DEFAULT '[]'", dropping_points_json: "TEXT NOT NULL DEFAULT '[]'" });
+addMissingColumns("bookings", {
+  selected_seats_json: "TEXT NOT NULL DEFAULT '[]'",
+  boarding_point: "TEXT",
+  dropping_point: "TEXT",
+  payment_method: "TEXT NOT NULL DEFAULT 'demo'",
+  payment_status: "TEXT NOT NULL DEFAULT 'demo_only'",
+  coupon_code: "TEXT",
+  discount_amount: "REAL NOT NULL DEFAULT 0",
+});
+db.prepare("DELETE FROM seat_holds WHERE expires_at <= ?").run(Math.floor(Date.now() / 1000));
+
+const couponInsert = db.prepare(`INSERT OR IGNORE INTO coupons (code,discount_type,discount_value,minimum_amount,maximum_discount,starts_at,expires_at,usage_limit,per_user_limit,active)
+  VALUES (?,?,?,?,?,?,?,?,?,1)`);
+const couponTransaction = db.transaction(() => {
+  couponInsert.run("TRIPNEST10", "percentage", 10, 300, 500, null, null, null, 1);
+  couponInsert.run("NEST5", "percentage", 5, 300, 500, null, null, null, 1);
+});
+couponTransaction();
 
 const count = db.prepare("SELECT COUNT(*) AS n FROM trips").get().n;
 if (count === 0) {

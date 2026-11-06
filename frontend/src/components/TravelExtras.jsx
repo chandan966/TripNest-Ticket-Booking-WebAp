@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./TravelExtras.css";
 
 const services = [
@@ -8,6 +8,19 @@ const services = [
 ];
 
 export default function TravelExtras() {
+  const [offers, setOffers] = useState(null);
+  useEffect(() => {
+    let active = true;
+    fetch("/api/offers")
+      .then((response) => {
+        if (!response.ok) throw new Error("Offers are unavailable.");
+        return response.json();
+      })
+      .then((items) => { if (active) setOffers(items); })
+      .catch(() => { if (active) setOffers([]); });
+    return () => { active = false; };
+  }, []);
+
   return (
     <section className="travel-extras" aria-labelledby="extrasTitle">
       <div className="section-heading">
@@ -18,12 +31,18 @@ export default function TravelExtras() {
         </div>
       </div>
       <div className="extras-grid">
-        <article className="offer-card">
-          <span className="offer-kicker">DEMO OFFER · 10% OFF</span>
-          <h3>A better fare for your next trip</h3>
-          <p>Use this sample coupon at checkout. No real payment is collected.</p>
-          <button type="button" className="coupon-copy" data-copy-code="TRIPNEST10">Copy TRIPNEST10</button>
-        </article>
+        {offers === null ? (
+          <article className="offer-card offer-empty" aria-live="polite">Loading current offers…</article>
+        ) : offers.length ? offers.map((offer) => (
+          <article className="offer-card" key={offer.code}>
+            <span className="offer-kicker">TRIPNEST OFFER · {offer.discount_label}</span>
+            <h3>Save on your next trip</h3>
+            <p>Minimum booking ₹{Number(offer.minimum_amount).toLocaleString("en-IN")}. Demo discount; no payment is collected.</p>
+            <button type="button" className="coupon-copy" data-copy-code={offer.code}>Copy {offer.code}</button>
+          </article>
+        )) : (
+          <article className="offer-card offer-empty"><span className="offer-kicker">TRIPNEST OFFERS</span><h3>No active offers</h3><p>Check back later for new savings.</p></article>
+        )}
         {services.map((service) => (
           <article className="service-card" key={service.action}>
             <span className="service-icon" aria-hidden="true">{service.icon}</span>

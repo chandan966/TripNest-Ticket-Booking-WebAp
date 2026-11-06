@@ -1,7 +1,7 @@
 .announcement {
   height: 34px;
-  background: #bd3842;
-  color: #fff;
+  background: #FFC107;
+  color: #111827;
   padding: 0 max(calc((100vw - 1160px)/2),24px);
   display: flex;
   align-items: center;
@@ -12,11 +12,11 @@
 
 .announcement-right {
   margin-left: auto;
-  color: #c8c7c0;
+  color: #4b5563;
 }
 
 .spark {
-  color: #ffb66e;
+  color: #F59E0B;
 }
 
 .header {
@@ -44,7 +44,7 @@
   display: grid;
   place-items: center;
   background: var(--orange);
-  color: white;
+  color: #111827;
   border-radius: 9px;
   font: 800 23px Manrope;
   transform: rotate(-3deg);
@@ -76,7 +76,7 @@
 }
 
 .nav-item.active,.nav-item:hover {
-  background: #fff0f1;
+  background: #FFFBEB;
   color: var(--orange);
 }
 
@@ -97,10 +97,10 @@
   border: 0;
   border-radius: 9px;
   background: var(--orange);
-  color: #fff;
+  color: #111827;
   padding: 12px 17px;
   font-weight: 700;
-  box-shadow: 0 5px 12px #d84e5526;
+  box-shadow: 0 5px 12px #FFC10726;
 }
 
 .login-btn span {

@@ -19,9 +19,14 @@
 }
 
 .offer-card {
-  color: #fff;
-  background: linear-gradient(140deg, #c73f48, #e87b71);
+  color: #111827;
+  background: linear-gradient(140deg, #F59E0B, #FFC107);
   border: 0;
+}
+
+.offer-empty {
+  display: grid;
+  align-content: center;
 }
 
 .offer-kicker {
@@ -46,11 +51,11 @@
 }
 
 .coupon-copy,.service-card button {
-  border: 1px solid #ffffff78;
+  border: 1px solid #11182744;
   border-radius: 8px;
   padding: 9px 11px;
   color: inherit;
-  background: #ffffff19;
+  background: #ffffff99;
   font-size: 10px;
   font-weight: 800;
 }
