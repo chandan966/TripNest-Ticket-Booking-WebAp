@@ -1,17 +1,15 @@
 {
   "name": "tripnest-ticket-booking",
-  "version": "1.0.0",
-  "description": "Travel booking demo with a Next.js frontend, serverless API routes, and Neon PostgreSQL.",
-  "main": "app/page.jsx",
+  "version": "2.0.0",
+  "description": "Full-stack Redbus-style travel ticket booking web application with React 19, Express, SQLite, live seat holding, e-ticket generation, GPS bus tracking, and admin dashboard.",
+  "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
     "dev": "node backend/server.js",
-    "dev:next": "next dev",
+    "predev": "npm run build",
     "build": "npm run build:frontend",
-    "db:seed": "node scripts/seed-db.mjs",
-    "predev": "npm run build:frontend",
     "build:frontend": "vite build --config frontend/vite.config.js",
-    "build:next": "next build"
+    "test:smoke": "node backend/scripts/test-smoke.js"
   },
   "engines": {
     "node": ">=20.19.0"

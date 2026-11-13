@@ -1,0 +1,410 @@
+.search-results-page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.search-sticky-header {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.search-route-summary h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-route-summary p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.date-navigator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  border: 1px solid var(--line);
+}
+
+.date-nav-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: all 0.15s ease;
+}
+
+.date-nav-btn:hover {
+  background: #e2e8f0;
+}
+
+.date-nav-current {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary);
+  background: #fff;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.results-layout-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Sidebar Filters */
+.filters-sidebar {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.filters-header h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.reset-filters-btn {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.filter-section {
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.filter-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.filter-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.filter-toggle-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.time-slot-btn {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  background: #fff;
+  color: var(--ink);
+  transition: all 0.15s ease;
+}
+
+.time-slot-btn:hover {
+  border-color: var(--primary);
+}
+
+.time-slot-btn.active {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Results Content */
+.results-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sort-tabs-bar {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sort-buttons-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sort-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--bg-surface);
+  transition: all 0.15s ease;
+}
+
+.sort-btn:hover {
+  color: var(--ink);
+}
+
+.sort-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Bus Card */
+.bus-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.bus-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: #cbd5e1;
+}
+
+.bus-card-main {
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 2fr 2.5fr 1.6fr auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.bus-operator-info h4 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bus-model-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.bus-badges-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.bus-rating-pill {
+  background: #15803d;
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.bus-timings-col {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.timing-block b {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  display: block;
+}
+
+.timing-block small {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.duration-line-wrap {
+  flex: 1;
+  padding: 0 16px;
+  position: relative;
+}
+
+.duration-line-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.duration-bar {
+  height: 2px;
+  background: #cbd5e1;
+  position: relative;
+}
+
+.duration-bar::after {
+  content: "🚌";
+  position: absolute;
+  top: -8px;
+  left: 45%;
+  font-size: 12px;
+}
+
+.bus-fare-col {
+  text-align: right;
+}
+
+.fare-price-tag {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.fare-sub-text {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.seats-remaining-pill {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--green-dark);
+  margin-top: 4px;
+}
+
+.seats-remaining-pill.critical {
+  color: #dc2626;
+}
+
+.bus-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.view-seats-cta-btn {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.view-seats-cta-btn:hover {
+  background: var(--primary-hover);
+}
+
+.bus-card-tabs-row {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--line);
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.bus-card-tab-links {
+  display: flex;
+  gap: 16px;
+}
+
+.card-tab-link {
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.card-tab-link:hover, .card-tab-link.active {
+  color: var(--primary);
+}
+
+/* Tab Drawer */
+.bus-card-tab-drawer {
+  padding: 16px 24px;
+  background: #fff;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .results-layout-grid {
+    grid-template-columns: 1fr;
+  }
+  .bus-card-main {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .bus-fare-col {
+    text-align: left;
+  }
+  .bus-card-actions {
+    flex-direction: row;
+  }
+}

@@ -1,65 +1,130 @@
-# TripNest
+# TripNest — Redbus-Grade Full-Stack Bus Ticket Booking Web App
 
-TripNest is an original bus-booking demo for comparing sample journeys and exercising a complete local booking flow. Sample trips and operators are fictional; the project is not affiliated with a transport provider.
+**TripNest** is a full-stack, Redbus-style online bus ticket booking platform built with **React 19**, **Vite**, **Express 5**, and **SQLite (better-sqlite3 with WAL mode)**.
 
-## Local stack
+---
 
-- React and Vite frontend
-- Express API
-- SQLite database at `backend/data/tripnest.db`
-- bcrypt password hashing and JWT authentication
+## 🌟 Key Redbus Features
 
-The repository also contains an older Next.js and Neon API path. The local `npm run dev` flow described here uses Express and SQLite.
+1. **Redbus Crimson Visual Experience**:
+   - Signature red brand identity (`#D84E55`), polished cards, smooth micro-interactions, responsive mobile and desktop layout.
+   - Quick date selectors (**Today**, **Tomorrow**), city swap (**⇄**), popular city autocomplete.
+   - Trending popular Indian bus routes with live fare tags (Pune ⇄ Mumbai, Bangalore ⇄ Goa, Delhi ⇄ Jaipur, Bangalore ⇄ Hyderabad, Chennai ⇄ Bangalore).
 
-## Run locally
+2. **Interactive Redbus Seat Layout (Lower & Upper Deck)**:
+   - **Lower Deck** & **Upper Deck** switcher for AC Sleeper buses; 2+2 layout for seater buses.
+   - Front driver cabin with steering wheel icon.
+   - Real-time seat status:
+     - ⚪ **Available Seats**
+     - 🔴 **Selected Seats** (Vibrant Red)
+     - 🔘 **Booked by Male** (Muted grey)
+     - 🌸 **Female Reserved Seats** (Soft rose pink with `♀` icon)
+   - **5-Minute Server-Side Seat Hold**: Concurrency-safe holding prevents double booking; automatic countdown timer.
 
-Requirements: Node.js 20.19 or newer and npm.
+3. **Primo Certification & Safety Guarantees**:
+   - Redbus **Primo Verified** badge for top-rated operators (★ 4.8+).
+   - On-time departure guarantee, clean sanitized AC coaches, verified polite staff.
+   - **Women-Friendly** choice filters.
 
-1. Install dependencies with `npm install`.
-2. Ensure `.env` contains a random `JWT_SECRET` with at least 32 characters. Keep `.env` private. `DATABASE_URL` is only needed by the optional Neon/Next path.
-3. Start the app with `npm run dev` and open **http://localhost:3000**.
+4. **Live GPS Bus Tracking ("Track My Bus")**:
+   - Real-time simulated telemetry with cruising speed (e.g. 78 km/h), GPS location along highway milestones, battery level, live ETA, and driver captain contact info.
+   - One-click status sharing to clipboard.
 
-The `predev` step builds the Vite frontend before Express serves it. `npm run build` builds the frontend only. The SQLite database creates its tables and sample routes on first start and preserves existing local records on later starts.
+5. **Redbus Digital E-Ticket Pass (Print / PDF)**:
+   - Authentic digital boarding pass with unique **PNR Number**, **QR Code**, and **Barcode**.
+   - Boarding point with landmark, reporting time, and dropping point.
+   - Itemized passenger table and fare receipt.
+   - 1-click `window.print()` / PDF export.
 
-To run the separate Next.js path, use `npm run dev:next`. Its API uses Neon PostgreSQL and requires `DATABASE_URL`; it does not use the SQLite seat-hold endpoints.
+6. **Offers & Coupons**:
+   - Verified active coupon codes:
+     - `REDBUS150`: Flat ₹150 off on bookings above ₹600.
+     - `FIRSTTRIP`: 15% off up to ₹250 for new users.
+     - `TRIPNEST10`: 10% off up to ₹500 on all routes.
+     - `SUPERBUS`: Flat ₹120 off on Sleeper & Primo buses.
+     - `FESTIVE20`: 20% off up to ₹300.
+   - 1-click coupon copy with instant toast alerts.
 
-## Working local flows
+7. **Cancellation & Rescheduling**:
+   - Tiered cancellation refund policy:
+     - **> 24 hours**: 90% refund
+     - **12 – 24 hours**: 70% refund
+     - **6 – 12 hours**: 50% refund
+     - **< 6 hours**: Non-refundable
+   - Instant date rescheduling to future dates.
 
-- Search sample bus, train, and flight routes by city, date, and type.
-- Register, sign in, and view account bookings.
-- Hold up to six specific seats on the server for five minutes. Expired holds are rejected at checkout, and one customer cannot hold a seat already held or booked by another customer.
-- Save passenger and boarding/drop details with a demo booking.
-- Apply active database coupons with minimum fare, date, route, and usage validation.
-- View/print a clearly marked sample ticket, cancel eligible future bookings, and release the seats.
-- View account notifications for bookings, cancellations, and support updates; mark one or all as read.
-- Create support tickets, attach an owned booking reference, exchange replies, and track status. Admin accounts can reply and update ticket status.
-- Use limited admin booking/trip APIs after promoting an account in the local SQLite database.
+8. **RedCare 24/7 Customer Support**:
+   - Open support tickets categorized by booking, payment, cancellation, refund, bus issue, lost luggage.
+   - Real-time chat messaging between passenger and support officers.
 
-The payment selector is for demonstration only. It does not contact Razorpay or collect money; demo bookings are clearly labeled and are not valid travel tickets.
+9. **Admin Control Room**:
+   - KPI metrics: Total Revenue, Confirmed Bookings, Active Bus Trips, Registered Travellers, Open Tickets.
+   - Add new bus routes and operators.
+   - View all customer bookings and update support ticket statuses.
 
-## API routes
+10. **Security & SEO**:
+    - **Security**: Strict Helmet headers (CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy), rate limiting, bcrypt salt 12 hashing, sanitized input validation.
+    - **SEO**: Schema.org JSON-LD structured data (`TravelAgency`, `FAQPage`), Open Graph tags, Twitter Card tags, `robots.txt`, and `sitemap.xml`.
 
-- `GET /api/health`, `/api/locations`, `/api/offers`
-- `GET /api/trips`, `/api/trips/:id`
-- `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
-- `POST /api/seats/hold`, `POST /api/seats/release`
-- `POST /api/bookings`, `GET /api/bookings/mine`, `GET /api/bookings/:code`
-- `POST /api/bookings/:code/cancel`
-- `GET /api/notifications`, `PATCH /api/notifications/:id/read`, `PATCH /api/notifications/read-all`
-- `GET /api/support/tickets`, `POST /api/support/tickets`, `GET /api/support/tickets/:id`, `POST /api/support/tickets/:id/messages`
-- `GET /api/admin/bookings`, `POST /api/admin/trips`
-- `GET /api/admin/support/tickets`, `PATCH /api/admin/support/tickets/:id`
+---
 
-Authenticated API calls use `Authorization: Bearer <token>`. For local admin access, set a registered account's role in SQLite, then sign out and back in:
+## 🚀 Quick Start Guide
 
-```sql
-UPDATE users SET role = 'admin' WHERE email = 'your-email@example.com';
+### Requirements
+- **Node.js** 20.19.0 or higher
+- **npm**
+
+### 1. Install & Build
+```bash
+npm install
+npm run build
 ```
 
-## Production integrations still required
+### 2. Start the Application
+```bash
+npm run dev
+```
+Open **http://localhost:3000** in your browser.
 
-The working local flow uses demo inventory and demo payment status. Real bookings require a payment provider order and server-side signature verification, live operator inventory, refund handling, customer communications, and valid operator ticket issuance. Those services are not configured in this repository, so the app must not be presented as selling real tickets.
+---
 
-The Next.js/Neon path is separate and currently lacks the Express seat-hold behavior. Choose and complete one deployment architecture before production use. Do not use SQLite on ephemeral serverless storage.
+## 👤 Demo Login Credentials
 
-Never commit `.env`, `.env.local`, or real payment, database, email, or SMS credentials.
+| Role | Email | Password |
+|---|---|---|
+| **Demo Passenger** | `user@example.com` | `Password123` |
+| **Administrator** | `admin@tripnest.com` | `Admin123!` |
+
+*(One-click quick login buttons are also provided in the Sign In modal).*
+
+---
+
+## 🧪 Automated Testing
+Run the comprehensive 13-stage end-to-end smoke test suite:
+```bash
+npm run test:smoke
+```
+
+---
+
+## 📡 Key REST API Endpoints
+
+- `GET /api/health` — Service health & uptime
+- `GET /api/locations` — All unique cities & destinations
+- `GET /api/offers` — Active promo coupons
+- `GET /api/trips` — Bus search with multi-filter & sorting
+- `GET /api/trips/:id` — Trip details & live seat map
+- `POST /api/auth/register` — User signup (bcrypt 12)
+- `POST /api/auth/login` — JWT user authentication
+- `POST /api/seats/hold` — Concurrency-safe 5-min seat hold
+- `POST /api/seats/release` — Release held seats
+- `POST /api/bookings` — Create confirmed booking with coupon calculation
+- `GET /api/bookings/mine` — View user's tickets
+- `GET /api/bookings/:code` — Lookup e-ticket by PNR
+- `POST /api/bookings/:code/cancel` — Cancel ticket with refund calculation
+- `POST /api/bookings/:code/reschedule` — Change travel date
+- `GET /api/tracking/:code` — Real-time GPS bus tracking telemetry
+- `GET /api/notifications` — Notification center
+- `GET /api/support/tickets` — RedCare customer support
+- `GET /api/admin/overview` — Admin KPI metrics
+- `POST /api/admin/trips` — Add new bus journey

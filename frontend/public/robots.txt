@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/admin
+Disallow: /api/auth
+
+Sitemap: https://tripnest.travel/sitemap.xml

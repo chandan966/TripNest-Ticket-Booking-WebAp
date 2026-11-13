@@ -1,0 +1,93 @@
+.support-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.support-hero-banner {
+  background: #1e293b;
+  color: #fff;
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.support-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.ticket-item-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ticket-item-card:hover, .ticket-item-card.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.ticket-chat-box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.chat-messages-container {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.chat-bubble.staff {
+  align-self: flex-start;
+  background: #F1F5F9;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: var(--primary);
+  color: #fff;
+}
+
+.reply-input-bar {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.reply-input-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .support-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}

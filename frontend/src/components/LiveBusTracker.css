@@ -1,0 +1,138 @@
+.live-tracker-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.tracker-hero-banner {
+  background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+  color: #fff;
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+  margin-bottom: 24px;
+}
+
+.tracker-search-bar {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  max-width: 500px;
+}
+
+.tracker-search-bar input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-weight: 700;
+  outline: none;
+}
+
+.tracker-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.telemetry-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.telemetry-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.telemetry-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 4px;
+}
+
+.route-progress-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.timeline-stops-list {
+  position: relative;
+  padding-left: 32px;
+  margin-top: 20px;
+}
+
+.timeline-stops-list::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--line-strong);
+}
+
+.timeline-stop-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.timeline-stop-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-stop-node {
+  position: absolute;
+  left: -32px;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #94A3B8;
+  display: grid;
+  place-items: center;
+}
+
+.timeline-stop-item.passed .timeline-stop-node {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.timeline-stop-item.current .timeline-stop-node {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-light);
+  animation: pulseNode 1.5s infinite;
+}
+
+@keyframes pulseNode {
+  0% { box-shadow: 0 0 0 0 rgba(216, 78, 85, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(216, 78, 85, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(216, 78, 85, 0); }
+}
+
+.driver-contact-card {
+  background: #F8FAFC;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}

@@ -1,15 +1,86 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#FFC107">
-  <meta name="description" content="Search and book bus, train, and flight tickets with TripNest.">
-  <title>TripNest — Your journey, one booking away</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#D84E55" />
+  <title>TripNest — India's Premier Online Bus Ticket Booking Platform</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Book online bus tickets with TripNest. Compare prices from 3000+ top operators like VRL, SRS, Zingbus, Shivneri, Orange Travels. Enjoy live bus tracking, Primo certified rides, instant seat holds, and 24/7 support." />
+  <meta name="keywords" content="bus booking, redbus clone, online bus ticket booking, volvo sleeper, scania bus, primo buses, live bus tracking, travel ticket booking, pune to mumbai bus, bangalore to goa bus" />
+  <meta name="author" content="TripNest Team" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tripnest.travel/" />
+  <meta property="og:title" content="TripNest — Online Bus Ticket Booking Made Fast & Easy" />
+  <meta property="og:description" content="Best bus ticket booking platform with live seat layout selection, Redbus Primo verified buses, female-reserved seats, and simulated real-time GPS tracking." />
+  <meta property="og:image" content="/favicon.svg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://tripnest.travel/" />
+  <meta property="twitter:title" content="TripNest — Fast Bus Booking with Live Seat Map" />
+  <meta property="twitter:description" content="Book AC Sleepers, Volvo, and Multi-Axle buses with real-time seat holding, zero booking fee, and instant cancellation refunds." />
+  <meta property="twitter:image" content="/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Schema.org JSON-LD Structured Data for TravelAgency & FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TravelAgency",
+        "name": "TripNest",
+        "url": "https://tripnest.travel",
+        "logo": "https://tripnest.travel/favicon.svg",
+        "description": "Comprehensive online bus ticket reservation platform with live seat holds, verified operators, and live bus GPS tracking.",
+        "telephone": "+91-98765-43210",
+        "priceRange": "₹200 - ₹3500",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does TripNest seat holding work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When you choose seats on our interactive deck map, TripNest temporarily reserves them for 5 minutes so no other passenger can book them while you fill passenger details."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is TripNest Primo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Primo is our certification for top-rated bus operators that guarantee punctuality, sanitized AC coaches, professional driving, and 24/7 tracking."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the cancellation policy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cancellations made 24 hours before departure receive up to a 90% refund, while cancellations between 12 to 24 hours receive a 70% refund directly to your TripNest account."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="root"></div>
