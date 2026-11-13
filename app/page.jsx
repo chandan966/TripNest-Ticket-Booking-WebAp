@@ -1,5 +1,7 @@
-import HomePage from "../frontend/src/pages/HomePage.jsx";
+"use client";
+
+import App from "../frontend/src/App.jsx";
 
 export default function Page() {
-  return <HomePage />;
+  return <App />;
 }
